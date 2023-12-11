@@ -1,10 +1,187 @@
+'use client';
+
 import Image from 'next/image'
 import styles from './page.module.css'
+import React from "react";
+import {Accordion, AccordionItem} from "@nextui-org/react";
+
+// const fileTree = {
+//   "name": "category1",
+//   "subCategories": [
+//     {
+//       "name": "subCat1",
+//       "subCategories": [
+//         {
+//           "name": "subCat1_1",
+//           "subCategories": [],
+//           "tags": [
+//             "tag1",
+//             "tag2",
+//             "tag3"
+//           ]
+//         }
+//       ],
+//       "tags": [
+//         "tag1",
+//         "tag2",
+//         "tag3"
+//       ]
+//     },
+//     {
+//       "name": "subCat2",
+//       "subCategories": [
+//         {
+//           "name": "subCat1_1",
+//           "subCategories": [
+//             {
+//               "name": "subCat1_1",
+//               "subCategories": [],
+//               "tags": [
+//                 "tag1",
+//                 "tag2",
+//                 "tag3"
+//               ]
+//             }
+//           ],
+//           "tags": [
+//             "tag1",
+//             "tag2",
+//             "tag3"
+//           ]
+//         }
+//       ],
+//       "tags": [
+//         "tag1",
+//         "tag2",
+//         "tag3"
+//       ]
+//     },
+//     {
+//       "name": "subCat3",
+//       "subCategories": [],
+//       "tags": [
+//         "tag1",
+//         "tag2",
+//         "tag3"
+//       ]
+//     }
+//   ],
+//   "tags": null
+// };
+
+const fileTree = [
+  {
+    folderName: "css",
+    subFileTree: [
+      {
+        folderName: 'css_1'
+      },
+      {
+        folderName: 'css_4'
+      },
+      {
+        folderName: 'css_45'
+      },
+      {
+        folderName: 'css_100'
+      }
+    ]
+  },
+  {
+    folderName: "js",
+    subFileTree: [
+      {
+        folderName: 'js_1'
+      },
+      {
+        folderName: 'js_2'
+      }
+    ]
+  },
+  {
+    folderName: "images",
+  },
+  {
+    folderName: "videos",
+    subFileTree: [
+      {
+        folderName: 'videos_1'
+      },
+      {
+        folderName: 'videos_2'
+      }
+    ]
+  },
+];
+
+function CreateFileTree() {
+  return (
+    <>
+      <Accordion selectionMode="multiple" className={styles.listStyle}>
+        {
+          fileTree.map((items, index) => {
+            return <AccordionItem key={index} className={items.subFileTree != undefined ? styles.hasChildren : undefined}  title={items.folderName}>
+              {
+                items.subFileTree != undefined
+                  ? 
+                  <>
+                    <ul>
+                    {
+                      items.subFileTree?.map((items, index) => {
+                        return(
+                          <li key={index}>{items.folderName}</li>
+                        )
+                      })
+                    }
+                  </ul>
+                  </>
+                :
+                '' 
+              }
+              
+            </AccordionItem>
+          })
+        }
+      </Accordion>
+      {/* <ul className={styles.listStyle}>
+        {
+          fileTree.map((items, index) => {
+            return <li key={index} className={items.subFileTree != undefined ? styles.hasChildren : undefined}>
+              <p>{items.folderName} {items.subFileTree != undefined ? <span></span> : ''}</p>
+              {
+                items.subFileTree != undefined
+                  ? 
+                  <>
+                    <ul>
+                    {
+                      items.subFileTree?.map((items, index) => {
+                        return(
+                          <li key={index}>{items.folderName}</li>
+                        )
+                      })
+                    }
+                  </ul>
+                  </>
+                :
+                '' 
+              }
+              
+            </li>
+          })
+        }
+      </ul> */}
+    </>
+  );
+}
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
+      <aside className={styles.aside}>
+        <CreateFileTree></CreateFileTree>
+      </aside>
+
+      {/* <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
@@ -89,7 +266,7 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
-      </div>
+      </div> */}
     </main>
   )
 }
